@@ -1,7 +1,9 @@
-package com.kazurayam.materials.demo
+package gebdemo
+
 import geb.Module
 
 class ManualsMenuModule extends Module {
+    
     static content = {
         toggle { $("div.menu a.manuals") }
         linksContainer { $("#manuals-menu") }
@@ -12,4 +14,5 @@ class ManualsMenuModule extends Module {
         toggle.click()
         waitFor { !linksContainer.hasClass("animating") }
     }
+
 }

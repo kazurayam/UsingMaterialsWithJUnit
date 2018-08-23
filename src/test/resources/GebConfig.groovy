@@ -17,7 +17,7 @@ import com.kazurayam.materials.FileType
 waiting {
     presets {
         slow {
-            timeout = 15
+            timeout = 8
             retryInterval = 1
         }
         quick {
@@ -27,11 +27,14 @@ waiting {
 }
 
 waiting {
-    timeout = 60
+    timeout = 20
     retryInterval = 0.5
 }
 
 atCheckWaiting = true
+
+baseUrl = "http://www.gebish.org/"
+reportsDir = new File("build/tmp/geb-reports")
 
 environments {
 

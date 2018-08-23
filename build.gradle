@@ -2,26 +2,34 @@ plugins {
     id "com.energizedwork.webdriver-binaries" version "1.4"
 }
 
-project.group 'kazurayam.com'
-project.version '0.1'
-
+apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 
+project.group 'kazurayam.com'
+project.version '0.1'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
 ext {
-    // The drivers we want to use
+    groovyVersion = '2.4.9'
+    logbackVersion = '1.2.3'
+    slf4jVersion = '1.7.2'
+
+    junitVersion = '4.12'
+    spockVersion = '1.1-groovy-2.4'
+
+    // The Selenium drivers we want to use
     drivers = ["firefox", "chrome", "chromeHeadless"]
-    ext {
-        groovyVersion = '2.4.9'
-        logbackVersion = '1.2.3'
-        slf4jVersion = '1.7.2'
-        gebVersion = '2.1'
-        seleniumVersion = '3.13.0'
-        chromeDriverVersion = '2.40'   // 2.35.528161 in Katalon Studio 5.4.2
-        geckoDriverVersion = '0.21.0'  // 0.19.0 in Katalon Studio 5.4.2
-        MaterialsVersion = '0.13'
-    }
+    gebVersion = '2.1'
+    seleniumVersion = '3.13.0'
+    chromeDriverVersion = '2.35'   // 2.35.528161 in Katalon Studio 5.6.2
+    geckoDriverVersion = '0.19.0'  // 0.19.0 in Katalon Studio 5.6.2
+
+    // other dependencies
+    MaterialsVersion = '0.13'
 }
 
 repositories {
@@ -43,8 +51,11 @@ dependencies {
 
     testCompile group: 'com.kazurayam', name: 'Materials', version: "${MaterialsVersion}"
 
+    // https://mvnrepository.com/artifact/junit/junit
+    testCompile group: 'junit', name: 'junit', version: "${junitVersion}"
+
     // https://mvnrepository.com/artifact/org.spockframework/spock-core
-    testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4'
+    testCompile group: 'org.spockframework', name: 'spock-core', version: "${spockVersion}"
 
     // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: "${seleniumVersion}"
@@ -71,28 +82,27 @@ drivers.each { driver ->
     }
 }
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
 
 def defaultEncoding = 'UTF-8'
 
 test.outputs.upToDateWhen {false}
 
 test {
-    include '**/material/demo/*Spec.class'
+    //include '**/materials/demo/*Spec.class'
+    include '**/materials/demo/*Test.class'
 }
 
 task pinpoint(type: Test) {
-    include '**/material/demo/GebishOrgSpec.class'
+    include '**/gebdemo/*Test.class'
 }
 
 // run firefoxTest or run chromeTest
 firefoxTest {
-    include '**/material/demo/GebishOrgSpec.class'
+    include '**/gebdemo/GebishOrgSpec.class'
 }
 
 chromeTest {
-    include '**/material/demo/GebishOrgSpec.class'
+    include '**/gebdemo/GebishOrgSpec.class'
 }
 
 tasks.withType(Test) {
