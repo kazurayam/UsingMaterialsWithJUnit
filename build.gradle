@@ -79,20 +79,20 @@ def defaultEncoding = 'UTF-8'
 test.outputs.upToDateWhen {false}
 
 test {
-    include '**/material/demo/*Spec.class'
+    include '**/materials/demo/*Spec.class'
 }
 
 task pinpoint(type: Test) {
-    include '**/material/demo/GebishOrgSpec.class'
+    include '**/materials/demo/GebishOrgSpec.class'
 }
 
 // run firefoxTest or run chromeTest
 firefoxTest {
-    include '**/material/demo/GebishOrgSpec.class'
+    include '**/materials/demo/GebishOrgSpec.class'
 }
 
 chromeTest {
-    include '**/material/demo/GebishOrgSpec.class'
+    include '**/materials/demo/GebishOrgSpec.class'
 }
 
 tasks.withType(Test) {
